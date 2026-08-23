@@ -24,6 +24,11 @@
         <div><dt>Posts</dt><dd id="post-count">--</dd></div>
         <div><dt>Updated</dt><dd id="updated-at">Loading</dd></div>
       </dl>
+      <div class="feed-actions" aria-label="Article actions">
+        <button id="mark-read" class="action-button" type="button">Mark all as read</button>
+        <button id="refresh-feed" class="action-button action-button-primary" type="button">Refresh all articles</button>
+        <span id="refresh-message" class="refresh-message" role="status" aria-live="polite"></span>
+      </div>
     </header>
 
     <section class="stream" aria-labelledby="stream-title">

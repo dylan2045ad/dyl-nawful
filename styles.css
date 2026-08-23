@@ -47,6 +47,13 @@ a { color: var(--green); text-decoration-color: rgba(81,255,155,.45); text-under
 .stats div { min-width: 128px; padding: 14px 16px; border: 1px solid var(--line); background: rgba(4,17,23,.62); }
 .stats dt { color: var(--muted); text-transform: uppercase; letter-spacing: .13em; font-size: .62rem; }
 .stats dd { margin: 5px 0 0; color: var(--blue); font-family: Consolas, monospace; font-weight: 700; }
+.feed-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.action-button { appearance: none; min-height: 44px; padding: 11px 16px; color: var(--green); border: 1px solid rgba(81,255,155,.42); background: rgba(81,255,155,.07); font: 700 .72rem Consolas, monospace; text-transform: uppercase; letter-spacing: .08em; cursor: pointer; transition: transform .2s, border-color .2s, background .2s; }
+.action-button:hover:not(:disabled) { transform: translateY(-1px); border-color: var(--green); background: rgba(81,255,155,.13); }
+.action-button-primary { color: var(--bg); border-color: var(--blue); background: var(--blue); }
+.action-button-primary:hover:not(:disabled) { background: #5ed0ff; border-color: #5ed0ff; }
+.action-button:disabled { cursor: not-allowed; opacity: .46; }
+.refresh-message { min-height: 1.2em; color: var(--muted); font: .72rem Consolas, monospace; }
 
 .stream { border-top: 1px solid var(--line); padding-top: 26px; }
 .stream-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 22px; }
@@ -71,6 +78,8 @@ footer { width: min(1040px, calc(100% - 32px)); margin: 0 auto; padding: 0 0 36p
   .post-card { grid-template-columns: 46px 1fr; }
   .post-body { padding: 18px 16px 20px; }
   .stream-heading { align-items: start; flex-direction: column; }
+  .feed-actions { align-items: stretch; flex-direction: column; }
+  .action-button { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .post-card { transition: none; } }

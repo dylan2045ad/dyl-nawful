@@ -40,3 +40,27 @@ node scripts/build-snapshot.mjs
 ```
 
 GitHub Pages deploys automatically after each verified snapshot commit reaches `main`.
+
+## Hourly refresh
+
+The Windows task `Dyl Nawful Hourly Refresh` runs `scripts/refresh-and-publish.ps1` once per hour while Dylan is signed in. The runner:
+
+1. Connects to the authenticated Chrome CDP session at `http://127.0.0.1:9222`.
+2. Collects and validates current `@MarioNawfal` timeline rows.
+3. Preserves the last successful snapshot if collection or validation fails.
+4. Runs all tests, commits only `data/posts.json`, and pushes `main`.
+5. Lets the existing GitHub Pages workflow deploy the verified snapshot.
+
+Install or repair the task with:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-hourly-task.ps1
+```
+
+Run one refresh manually with `npm run refresh`. Logs are written to `logs/hourly-refresh.log`.
+
+## Read and refresh controls
+
+- `Mark all as read` remembers every visible post in local browser storage.
+- `Refresh all articles` fetches the newest deployed snapshot without using the browser cache and removes posts marked read.
+- An open page also refreshes automatically once per hour.
