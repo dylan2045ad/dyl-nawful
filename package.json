@@ -1,0 +1,13 @@
+{
+  "name": "dyl-nawful",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "validate": "node --check app.js && node --check scripts/build-snapshot.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

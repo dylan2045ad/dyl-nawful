@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#06131a">
+  <meta name="description" content="The latest 20 hours of @MarioNawfal, arranged in chronological order.">
+  <meta property="og:title" content="Dyl Nawful">
+  <meta property="og:description" content="Twenty hours. Twenty posts. One clean signal stream.">
+  <meta name="twitter:card" content="summary">
+  <title>Dyl Nawful</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" type="module"></script>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <main>
+    <header class="hero">
+      <div class="eyebrow"><span class="pulse"></span> Live signal archive</div>
+      <h1>Dyl <span>Nawful</span></h1>
+      <p class="lede">The latest 20 hours from <a href="https://x.com/MarioNawfal" target="_blank" rel="noopener noreferrer">@MarioNawfal</a>, rebuilt as a clean chronological signal.</p>
+      <dl class="stats" aria-label="Feed status">
+        <div><dt>Window</dt><dd>20H</dd></div>
+        <div><dt>Posts</dt><dd id="post-count">--</dd></div>
+        <div><dt>Updated</dt><dd id="updated-at">Loading</dd></div>
+      </dl>
+    </header>
+
+    <section class="stream" aria-labelledby="stream-title">
+      <div class="stream-heading">
+        <div><span class="kicker">Oldest to newest</span><h2 id="stream-title">Transmission log</h2></div>
+        <span class="status" id="feed-status">Syncing</span>
+      </div>
+      <ol id="post-list" class="post-list" aria-live="polite"></ol>
+      <div id="empty-state" class="empty" hidden>No qualifying posts were captured in this 20-hour window.</div>
+    </section>
+  </main>
+  <footer>Independent viewer. Source posts remain on X.</footer>
+</body>
+</html>
