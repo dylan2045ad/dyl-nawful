@@ -24,6 +24,12 @@ export function mergeReadIds(readIds, posts) {
   return [...merged].slice(-MAX_STORED_READ_IDS);
 }
 
+export function getFeedStatus(feed, now = Date.now()) {
+  const generatedAt = new Date(feed?.generatedAt).getTime();
+  const isOld = !Number.isFinite(generatedAt) || now - generatedAt > 2 * 60 * 60 * 1000;
+  return Boolean(feed?.stale) || isOld ? "Snapshot stale" : "Signal synced";
+}
+
 function renderPost(documentRef, post) {
   const item = documentRef.createElement("li");
   item.className = "post-card";
@@ -92,11 +98,11 @@ export function initializeApp({
         .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
         .slice(-20);
       visiblePosts = filterUnreadPosts(posts, loadReadIds());
-      const stale = Boolean(feed.stale) || Date.now() - new Date(feed.generatedAt).getTime() > 2 * 60 * 60 * 1000;
       list.replaceChildren(...visiblePosts.map(post => renderPost(documentRef, post)));
       count.textContent = String(visiblePosts.length).padStart(2, "0");
       updated.textContent = formatter.format(new Date(feed.generatedAt));
-      status.textContent = stale ? "Snapshot stale" : "Signal synced";
+      const stale = getFeedStatus(feed) === "Snapshot stale";
+      status.textContent = getFeedStatus(feed);
       status.classList.toggle("is-stale", stale);
       markRead.disabled = visiblePosts.length === 0;
       empty.textContent = posts.length > 0
@@ -107,12 +113,7 @@ export function initializeApp({
         ? `${visiblePosts.length} unread article${visiblePosts.length === 1 ? "" : "s"} loaded.`
         : "";
     } catch (error) {
-      count.textContent = "00";
-      updated.textContent = "Unavailable";
-      status.textContent = "Feed offline";
-      empty.textContent = error.message;
-      empty.hidden = false;
-      refreshMessage.textContent = "Refresh failed. The last page state was preserved.";
+      refreshMessage.textContent = `Refresh failed. Showing the last available snapshot (${error.message}).`;
     } finally {
       isRefreshing = false;
       refresh.disabled = false;
@@ -124,6 +125,12 @@ export function initializeApp({
     if (visiblePosts.length === 0) return;
     const markedCount = visiblePosts.length;
     saveReadIds(mergeReadIds(loadReadIds(), visiblePosts));
+    visiblePosts = [];
+    list.replaceChildren();
+    count.textContent = "00";
+    markRead.disabled = true;
+    empty.textContent = "You are all caught up. New articles will appear after the next refresh.";
+    empty.hidden = false;
     refreshMessage.textContent = `${markedCount} article${markedCount === 1 ? "" : "s"} marked as read. Refresh to clear them.`;
   });
 
