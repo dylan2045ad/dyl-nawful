@@ -1,5 +1,6 @@
 import { mkdir, rename, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { chromium } from "playwright-core";
 import { normalizeCollectedRow } from "./lib/collector.mjs";
 
@@ -7,6 +8,23 @@ const output = resolve(process.argv[2] ?? "data/browser-export.json");
 const endpoint = process.env.DYL_NAWFUL_CDP_ENDPOINT ?? "http://127.0.0.1:9222";
 const maxScrolls = Number(process.env.DYL_NAWFUL_MAX_SCROLLS ?? 14);
 const cutoff = Date.now() - 20 * 60 * 60 * 1000;
+
+export async function assertCdpReady(endpoint, fetchImpl = fetch) {
+  let response;
+  try {
+    response = await fetchImpl(`${endpoint}/json/version`);
+  } catch (error) {
+    throw new Error(`Chrome CDP is unreachable at ${endpoint}. Start the signed-in Chrome session with remote debugging enabled. ${error.message}`);
+  }
+  if (!response.ok) {
+    throw new Error(`Chrome CDP preflight failed at ${endpoint}/json/version with HTTP ${response.status}.`);
+  }
+  const version = await response.json();
+  if (!version.webSocketDebuggerUrl) {
+    throw new Error(`Chrome CDP preflight returned no webSocketDebuggerUrl at ${endpoint}.`);
+  }
+  return version;
+}
 
 async function collectVisibleRows(page) {
   return page.locator('article[data-testid="tweet"]').evaluateAll(articles => articles.map(article => {
@@ -49,6 +67,7 @@ async function collectTimelineRows(page) {
 async function main() {
   let page;
   try {
+    await assertCdpReady(endpoint);
     const browser = await chromium.connectOverCDP(endpoint, { timeout: 15_000 });
     const context = browser.contexts()[0];
     if (!context) throw new Error("Authenticated Chrome context was not found.");
@@ -74,10 +93,12 @@ async function main() {
   }
 }
 
-main().then(
-  () => process.exit(0),
-  error => {
-    console.error(error instanceof Error ? error.message : String(error));
-    process.exit(1);
-  }
-);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().then(
+    () => process.exit(0),
+    error => {
+      console.error(error instanceof Error ? error.message : String(error));
+      process.exit(1);
+    }
+  );
+}

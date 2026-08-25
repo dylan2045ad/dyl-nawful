@@ -49,6 +49,11 @@ try {
     Invoke-Checked git merge --ff-only origin/main
 
     $env:DYL_NAWFUL_CDP_ENDPOINT = $CdpEndpoint
+    try {
+        Invoke-WebRequest -Uri "$CdpEndpoint/json/version" -TimeoutSec 5 -UseBasicParsing | Out-Null
+    } catch {
+        throw "Chrome CDP preflight failed at $CdpEndpoint. Keep the signed-in Chrome session running with remote debugging enabled. $($_.Exception.Message)"
+    }
     $collected = $false
     for ($attempt = 1; $attempt -le 2 -and -not $collected; $attempt += 1) {
         try {
