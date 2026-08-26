@@ -27,7 +27,8 @@ export function mergeReadIds(readIds, posts) {
 export function getFeedStatus(feed, now = Date.now()) {
   const generatedAt = new Date(feed?.generatedAt).getTime();
   const isOld = !Number.isFinite(generatedAt) || now - generatedAt > 2 * 60 * 60 * 1000;
-  return Boolean(feed?.stale) || isOld ? "Snapshot stale" : "Signal synced";
+  // Ensure the conditional returns a string in all cases by grouping the boolean
+  return (Boolean(feed?.stale) || isOld) ? "Snapshot stale" : "Signal synced";
 }
 
 function renderPost(documentRef, post) {
