@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { filterUnreadPosts, getFeedStatus, mergeReadIds, parseReadIds } from "../app.js";
+import { filterUnreadPosts, getFeedStatus, getFeedUrl, mergeReadIds, parseReadIds } from "../app.js";
 
 test("parses stored read IDs and tolerates malformed state", () => {
   assert.deepEqual([...parseReadIds('["1",2]')], ["1", "2"]);
@@ -18,4 +18,11 @@ test("treats explicit and old snapshots as stale", () => {
   assert.equal(getFeedStatus({ stale: true, generatedAt: "2026-08-24T05:59:00.000Z" }, now), "Snapshot stale");
   assert.equal(getFeedStatus({ stale: false, generatedAt: "2026-08-24T03:59:00.000Z" }, now), "Snapshot stale");
   assert.equal(getFeedStatus({ stale: false, generatedAt: "2026-08-24T05:59:00.000Z" }, now), "Signal synced");
+});
+
+test("builds the feed URL relative to the deployed Pages path", () => {
+  assert.equal(
+    getFeedUrl("https://dylan2045ad.github.io/dyl-nawful/", 123),
+    "https://dylan2045ad.github.io/dyl-nawful/data/posts.json?refresh=123"
+  );
 });

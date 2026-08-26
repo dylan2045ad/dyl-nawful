@@ -24,11 +24,12 @@
         <div><dt>Posts</dt><dd id="post-count">--</dd></div>
         <div><dt>Updated</dt><dd id="updated-at">Loading</dd></div>
       </dl>
-      <div class="feed-actions" aria-label="Article actions">
+      <div class="feed-actions" aria-label="Feed actions">
         <button id="mark-read" class="action-button" type="button">Mark all as read</button>
-        <button id="refresh-feed" class="action-button action-button-primary" type="button">Refresh all articles</button>
+        <button id="refresh-feed" class="action-button action-button-primary" type="button" aria-describedby="refresh-help">Refresh sources</button>
         <span id="refresh-message" class="refresh-message" role="status" aria-live="polite"></span>
       </div>
+      <p id="refresh-help" class="action-help">Checks the latest source snapshot published by the local collector.</p>
     </header>
 
     <section class="stream" aria-labelledby="stream-title">

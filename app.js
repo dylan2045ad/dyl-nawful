@@ -31,6 +31,12 @@ export function getFeedStatus(feed, now = Date.now()) {
   return (Boolean(feed?.stale) || isOld) ? "Snapshot stale" : "Signal synced";
 }
 
+export function getFeedUrl(baseUri = "http://localhost/", now = Date.now()) {
+  const url = new URL("data/posts.json", baseUri);
+  url.searchParams.set("refresh", String(now));
+  return url.href;
+}
+
 function renderPost(documentRef, post) {
   const item = documentRef.createElement("li");
   item.className = "post-card";
@@ -90,7 +96,7 @@ export function initializeApp({
     refreshMessage.textContent = manual ? "Checking for new articles..." : "";
 
     try {
-      const response = await fetchImpl(`data/posts.json?refresh=${Date.now()}`, { cache: "no-store" });
+      const response = await fetchImpl(getFeedUrl(documentRef.baseURI, Date.now()), { cache: "no-store" });
       if (!response.ok) throw new Error(`Feed unavailable (${response.status})`);
       const feed = await response.json();
       const cutoff = Date.now() - Number(feed.windowHours || 20) * 60 * 60 * 1000;
