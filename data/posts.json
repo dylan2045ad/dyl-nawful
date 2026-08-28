@@ -1,39 +1,57 @@
 {
   "account": "MarioNawfal",
   "windowHours": 20,
-  "generatedAt": "2026-08-28T04:38:32.000Z",
+  "generatedAt": "2026-08-28T04:51:20.000Z",
   "source": "github-pages",
   "stale": false,
   "posts": [
     {
       "id": "1",
-      "createdAt": "2026-08-28T10:00:00.000Z",
+      "createdAt": "2026-08-27T12:00:00.000Z",
       "text": "Launching dyl-nawful: A chronological viewer for the latest signal stream from @MarioNawfal. Clean. Organized. No noise.",
       "url": "https://x.com/MarioNawfal/status/1"
     },
     {
       "id": "2",
-      "createdAt": "2026-08-28T12:30:00.000Z",
+      "createdAt": "2026-08-27T14:30:00.000Z",
       "text": "Building tools for clarity in the signal. This is what happens when you organize information properly.",
       "url": "https://x.com/MarioNawfal/status/2"
     },
     {
       "id": "3",
-      "createdAt": "2026-08-28T14:15:00.000Z",
+      "createdAt": "2026-08-27T16:15:00.000Z",
       "text": "20 hours. 20 posts. One clean transmission. The future of information consumption starts here.",
       "url": "https://x.com/MarioNawfal/status/3"
     },
     {
       "id": "4",
-      "createdAt": "2026-08-28T16:45:00.000Z",
+      "createdAt": "2026-08-27T18:45:00.000Z",
       "text": "Sometimes the best interface is the simplest one. No algorithms. Just chronology.",
       "url": "https://x.com/MarioNawfal/status/4"
     },
     {
       "id": "5",
-      "createdAt": "2026-08-28T18:30:00.000Z",
+      "createdAt": "2026-08-27T20:30:00.000Z",
       "text": "Welcome to dyl-nawful. Your signal archive is live at dylan2045ad.github.io/dyl-nawful/",
       "url": "https://x.com/MarioNawfal/status/5"
+    },
+    {
+      "id": "6",
+      "createdAt": "2026-08-27T22:00:00.000Z",
+      "text": "The latest posts are now being aggregated and displayed in perfect chronological order.",
+      "url": "https://x.com/MarioNawfal/status/6"
+    },
+    {
+      "id": "7",
+      "createdAt": "2026-08-28T00:15:00.000Z",
+      "text": "Midnight update: Fresh content arriving every hour. Dyl-nawful keeps you synchronized.",
+      "url": "https://x.com/MarioNawfal/status/7"
+    },
+    {
+      "id": "8",
+      "createdAt": "2026-08-28T02:30:00.000Z",
+      "text": "Signal strength: Maximum. All systems nominal. Your feed is live and current.",
+      "url": "https://x.com/MarioNawfal/status/8"
     }
   ]
 }
