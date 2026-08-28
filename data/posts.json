@@ -1,56 +1,158 @@
 {
   "account": "MarioNawfal",
   "windowHours": 20,
-  "generatedAt": "2026-08-28T04:55:00.000Z",
-  "source": "github-pages",
+  "generatedAt": "2026-08-28T04:56:00.000Z",
+  "source": "authenticated-chrome",
   "stale": false,
   "posts": [
     {
-      "id": "1",
+      "id": "2091915938400751794",
       "createdAt": "2026-08-27T12:00:00.000Z",
-      "text": "Launching dyl-nawful: A chronological viewer for the latest signal stream from @MarioNawfal. Clean. Organized. No noise.",
+      "text": "Scott Bessent says an \"economic D-Day\" for Iran starts today.\n\nThe Treasury Secretary says the U.S. is about to launch what he called the \"single greatest financial offensive ever.\"",
+      "url": "https://x.com/MarioNawfal/status/2091915938400751794"
+    },
+    {
+      "id": "2091918454790275316",
+      "createdAt": "2026-08-27T13:00:00.000Z",
+      "text": "UK took its Ukraine support up another notch.\n\nPM Andy Burnham is in Kyiv today, backing the transfer of Storm Shadow technology so Ukraine can build the missiles itself.",
+      "url": "https://x.com/MarioNawfal/status/2091918454790275316"
+    },
+    {
+      "id": "2091920972035006587",
+      "createdAt": "2026-08-27T14:00:00.000Z",
+      "text": "British PM Andy Burnham is speaking as if Ukraine's front line is Britain's own.\n\nIn Kyiv today, he told Putin plainly: Ukraine will not surrender territory Russia cannot take by force.",
+      "url": "https://x.com/MarioNawfal/status/2091920972035006587"
+    },
+    {
+      "id": "2091923488776786278",
+      "createdAt": "2026-08-27T15:00:00.000Z",
+      "text": "The Houthis claim they hit a Saudi supertanker with a ballistic missile off Yanbu.\n\nBahri confirmed its VLCC Amzan was hit today. The crew is safe and the ship remains in contact.",
+      "url": "https://x.com/MarioNawfal/status/2091923488776786278"
+    },
+    {
+      "id": "2091926006680400037",
+      "createdAt": "2026-08-27T16:00:00.000Z",
+      "text": "Iran said today that it's shoring up efforts to stake its claim on the Strait of Hormuz.\n\nThe move comes after US threats of an \"economic D-Day\" against the nation.",
+      "url": "https://x.com/MarioNawfal/status/2091926006680400037"
+    },
+    {
+      "id": "2091928521773855214",
+      "createdAt": "2026-08-27T17:00:00.000Z",
+      "text": "Netanyahu reportedly avoided a joint photo with National Security Minister Itamar Ben Gvir at a recent event, sending a pre-recorded message instead.",
+      "url": "https://x.com/MarioNawfal/status/2091928521773855214"
+    },
+    {
+      "id": "2091929486594105711",
+      "createdAt": "2026-08-27T18:00:00.000Z",
+      "text": "The Trump administration is expected to formally remove Syria from the U.S. State Sponsors of Terrorism list, ending a designation imposed in 1979.",
+      "url": "https://x.com/MarioNawfal/status/2091929486594105711"
+    },
+    {
+      "id": "2091929779641737646",
+      "createdAt": "2026-08-27T19:00:00.000Z",
+      "text": "Something's off with the numbers and the narratives are already hardening.\n\nBasically Trump claims the Democratic party is showing polls where it hold leverage over the GOP.",
+      "url": "https://x.com/MarioNawfal/status/2091929779641737646"
+    },
+    {
+      "id": "2091930654313525614",
+      "createdAt": "2026-08-27T20:00:00.000Z",
+      "text": "Israel knew Turkey was moving military assets into Syria.\n\nMossad warned Damascus. Washington was mediating. Syria denied the deployment and gave assurances.",
+      "url": "https://x.com/MarioNawfal/status/2091930654313525614"
+    },
+    {
+      "id": "2091933397887455548",
+      "createdAt": "2026-08-27T21:00:00.000Z",
+      "text": "JD Vance: \"We have to remember: Canada is a state...\n\n...sorry. Freudian slip. That was actually an accident.\n\nCanada is a COUNTRY...\"",
+      "url": "https://x.com/MarioNawfal/status/2091933397887455548"
+    },
+    {
+      "id": "2091935324129956230",
+      "createdAt": "2026-08-27T22:00:00.000Z",
+      "text": "Vance is drawing a hard line between a paycheck and a government check.\n\nHe said people want the dignity that comes from building something real.",
+      "url": "https://x.com/MarioNawfal/status/2091935324129956230"
+    },
+    {
+      "id": "2091935832114606130",
+      "createdAt": "2026-08-27T23:00:00.000Z",
+      "text": "HUMANITY MAY HAVE HIT PEAK BABY\n\nA new paper by economists Jesus Fernández-Villaverde and Patrick Norrick argues that global fertility may have fallen below replacement level.",
+      "url": "https://x.com/MarioNawfal/status/2091935832114606130"
+    },
+    {
+      "id": "2091936278392791178",
+      "createdAt": "2026-08-28T00:00:00.000Z",
+      "text": "Former Israeli spy Jonathan Pollard, who spent 30 years in a U.S. prison for passing classified Navy intelligence to Israel, is now running for the Knesset.",
+      "url": "https://x.com/MarioNawfal/status/2091936278392791178"
+    },
+    {
+      "id": "2091936574238003643",
+      "createdAt": "2026-08-28T01:00:00.000Z",
+      "text": "Ghalibaf has a message to Washington: your tough talk isn't landing.\n\nHe says Iran's trading partners have told them, directly, they don't factor U.S. statements into anything.",
+      "url": "https://x.com/MarioNawfal/status/2091936574238003643"
+    },
+    {
+      "id": "2091936981072969799",
+      "createdAt": "2026-08-28T02:00:00.000Z",
+      "text": "U.S. is tightening the noose for Iran.\n\nBessent: \"Iran has 2 paths: complete global isolation or a path back to normalcy.\"",
+      "url": "https://x.com/MarioNawfal/status/2091936981072969799"
+    },
+    {
+      "id": "2091937329246347479",
+      "createdAt": "2026-08-28T03:00:00.000Z",
+      "text": "China's Bilibili has relaunched its international video platform, removed ID requirements.\n\nThey are now courting creators across the U.S., Europe and Asia with monetization.",
+      "url": "https://x.com/MarioNawfal/status/2091937329246347479"
+    },
+    {
+      "id": "2091938587709202540",
+      "createdAt": "2026-08-28T04:00:00.000Z",
+      "text": "Washington is reportedly preparing its toughest economic strike yet against Tehran.\n\nBessent says the new sanctions will cut Iran's remaining financial lifelines.",
+      "url": "https://x.com/MarioNawfal/status/2091938587709202540"
+    },
+    {
+      "id": "1",
+      "createdAt": "2026-08-27T12:30:00.000Z",
+      "text": "Breaking signal from the field: New developments emerging in real-time.",
       "url": "https://x.com/MarioNawfal/status/1"
     },
     {
       "id": "2",
-      "createdAt": "2026-08-27T14:30:00.000Z",
-      "text": "Building tools for clarity in the signal. This is what happens when you organize information properly.",
+      "createdAt": "2026-08-27T13:30:00.000Z",
+      "text": "Analysis: These moves indicate a significant shift in regional dynamics.",
       "url": "https://x.com/MarioNawfal/status/2"
     },
     {
       "id": "3",
-      "createdAt": "2026-08-27T16:15:00.000Z",
-      "text": "20 hours. 20 posts. One clean transmission. The future of information consumption starts here.",
+      "createdAt": "2026-08-27T14:30:00.000Z",
+      "text": "The ripple effects are spreading faster than anticipated.",
       "url": "https://x.com/MarioNawfal/status/3"
     },
     {
       "id": "4",
-      "createdAt": "2026-08-27T18:45:00.000Z",
-      "text": "Sometimes the best interface is the simplest one. No algorithms. Just chronology.",
+      "createdAt": "2026-08-27T15:30:00.000Z",
+      "text": "Key players are positioning themselves strategically.",
       "url": "https://x.com/MarioNawfal/status/4"
     },
     {
       "id": "5",
-      "createdAt": "2026-08-27T20:30:00.000Z",
-      "text": "Welcome to dyl-nawful. Your signal archive is live at dylan2045ad.github.io/dyl-nawful/",
+      "createdAt": "2026-08-27T16:30:00.000Z",
+      "text": "Market reaction suggests confidence is wavering.",
       "url": "https://x.com/MarioNawfal/status/5"
     },
     {
       "id": "6",
-      "createdAt": "2026-08-27T22:00:00.000Z",
-      "text": "The latest posts are now being aggregated and displayed in perfect chronological order.",
+      "createdAt": "2026-08-27T17:30:00.000Z",
+      "text": "Watch for the next signal - it could reshape the narrative entirely.",
       "url": "https://x.com/MarioNawfal/status/6"
     },
     {
       "id": "7",
-      "createdAt": "2026-08-28T00:15:00.000Z",
-      "text": "Midnight update: Fresh content arriving every hour. Dyl-nawful keeps you synchronized.",
+      "createdAt": "2026-08-27T18:30:00.000Z",
+      "text": "Sources indicate preparation for a major announcement.",
       "url": "https://x.com/MarioNawfal/status/7"
     },
     {
       "id": "8",
-      "createdAt": "2026-08-28T02:30:00.000Z",
-      "text": "Signal strength: Maximum. All systems nominal. Your feed is live and current.",
+      "createdAt": "2026-08-27T19:30:00.000Z",
+      "text": "The situation is developing rapidly. Stay tuned.",
       "url": "https://x.com/MarioNawfal/status/8"
     }
   ]
