@@ -69,6 +69,7 @@ export function initializeApp({
   const refreshMessage = documentRef.querySelector("#refresh-message");
   let visiblePosts = [];
   let isRefreshing = false;
+  let lastFeed = null;
 
   function loadReadIds() {
     try {
@@ -93,6 +94,7 @@ export function initializeApp({
       const response = await fetchImpl(`data/posts.json?refresh=${Date.now()}`, { cache: "no-store" });
       if (!response.ok) throw new Error(`Feed unavailable (${response.status})`);
       const feed = await response.json();
+      lastFeed = feed;
       const cutoff = Date.now() - Number(feed.windowHours || 20) * 60 * 60 * 1000;
       const posts = [...(Array.isArray(feed.posts) ? feed.posts : [])]
         .filter(post => new Date(post.createdAt).getTime() >= cutoff)
@@ -136,8 +138,19 @@ export function initializeApp({
   });
 
   refresh.addEventListener("click", () => loadFeed({ manual: true }));
-  setIntervalImpl(() => loadFeed(), 60 * 60 * 1000);
+  
+  // Initial load
   loadFeed();
+  
+  // Hourly automatic refresh
+  setIntervalImpl(() => loadFeed(), 60 * 60 * 1000);
+  
+  // Smart refresh: check every 5 minutes if snapshot is stale and refresh if needed
+  setIntervalImpl(() => {
+    if (lastFeed && getFeedStatus(lastFeed) === "Snapshot stale" && !isRefreshing) {
+      loadFeed();
+    }
+  }, 5 * 60 * 1000);
 
   return { loadFeed };
 }
