@@ -76,6 +76,26 @@ export function initializeApp({
   let visiblePosts = [];
   let isRefreshing = false;
 
+  // Create a simple alerts area if not present so we can surface errors
+  let alerts = documentRef.querySelector('#alerts');
+  if (!alerts) {
+    alerts = documentRef.createElement('div');
+    alerts.id = 'alerts';
+    alerts.style.cssText = 'position:fixed;right:1rem;bottom:1rem;z-index:9999;max-width:320px;';
+    documentRef.body.appendChild(alerts);
+  }
+
+  function showAlert(message, duration = 8000) {
+    try {
+      const el = documentRef.createElement('div');
+      el.className = 'alert';
+      el.textContent = message;
+      el.style.cssText = 'background:#111;color:#fff;padding:8px 12px;margin-top:8px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.4);font-size:13px;';
+      alerts.appendChild(el);
+      setTimeout(() => { el.remove(); }, duration);
+    } catch (e) { console.warn('showAlert failed', e); }
+  }
+
   function loadReadIds() {
     try {
       return parseReadIds(storage.getItem(READ_STORAGE_KEY));
@@ -88,61 +108,141 @@ export function initializeApp({
     storage.setItem(READ_STORAGE_KEY, JSON.stringify(ids));
   }
 
-  async function loadFeed({ manual = false } = {}) {
-    if (isRefreshing) return;
-    isRefreshing = true;
-    refresh.disabled = true;
-    refresh.setAttribute("aria-busy", "true");
-    refreshMessage.textContent = manual ? "Checking for new articles..." : "";
-
+  // local safe fetch wrapper to provide timeouts, cache-bypass and consistent errors
+  async function safeFetchJSON(url, options = {}, {timeoutMs = 10000, cacheBypass = true} = {}) {
     try {
-      const response = await fetchImpl(getFeedUrl(documentRef.baseURI, Date.now()), { cache: "no-store" });
-      if (!response.ok) throw new Error(`Feed unavailable (${response.status})`);
-      const feed = await response.json();
-      const cutoff = Date.now() - Number(feed.windowHours || 20) * 60 * 60 * 1000;
-      const posts = [...(Array.isArray(feed.posts) ? feed.posts : [])]
-        .filter(post => new Date(post.createdAt).getTime() >= cutoff)
-        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-        .slice(-20);
-      visiblePosts = filterUnreadPosts(posts, loadReadIds());
-      list.replaceChildren(...visiblePosts.map(post => renderPost(documentRef, post)));
-      count.textContent = String(visiblePosts.length).padStart(2, "0");
-      updated.textContent = formatter.format(new Date(feed.generatedAt));
-      const stale = getFeedStatus(feed) === "Snapshot stale";
-      status.textContent = getFeedStatus(feed);
-      status.classList.toggle("is-stale", stale);
-      markRead.disabled = visiblePosts.length === 0;
-      empty.textContent = posts.length > 0
-        ? "You are all caught up. New articles will appear after the next refresh."
-        : "No qualifying posts were captured in this 20-hour window.";
-      empty.hidden = visiblePosts.length > 0;
-      refreshMessage.textContent = manual
-        ? `${visiblePosts.length} unread article${visiblePosts.length === 1 ? "" : "s"} loaded.`
-        : "";
-    } catch (error) {
-      refreshMessage.textContent = `Refresh failed. Showing the last available snapshot (${error.message}).`;
-    } finally {
-      isRefreshing = false;
-      refresh.disabled = false;
-      refresh.removeAttribute("aria-busy");
+      if (cacheBypass) {
+        const sep = url.includes('?') ? '&' : '?';
+        url = `${url}${sep}_=${Date.now()}`;
+      }
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), timeoutMs);
+      const res = await fetchImpl(url, {...options, signal: controller.signal, credentials: 'same-origin'});
+      clearTimeout(id);
+      if (!res.ok) {
+        const text = await res.text().catch(()=>'<no body>');
+        const err = new Error(`Fetch failed ${res.status} ${res.statusText}: ${text}`);
+        err.status = res.status;
+        throw err;
+      }
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) return await res.json();
+      return await res.text();
+    } catch (err) {
+      console.error('safeFetchJSON error for', url, err);
+      throw err;
     }
   }
 
-  markRead.addEventListener("click", () => {
-    if (visiblePosts.length === 0) return;
-    const markedCount = visiblePosts.length;
-    saveReadIds(mergeReadIds(loadReadIds(), visiblePosts));
-    visiblePosts = [];
-    list.replaceChildren();
-    count.textContent = "00";
-    markRead.disabled = true;
-    empty.textContent = "You are all caught up. New articles will appear after the next refresh.";
-    empty.hidden = false;
-    refreshMessage.textContent = `${markedCount} article${markedCount === 1 ? "" : "s"} marked as read. Refresh to clear them.`;
+  async function loadFeed({ manual = false } = {}) {
+    if (isRefreshing) return;
+    isRefreshing = true;
+    if (refresh) {
+      refresh.disabled = true;
+      refresh.setAttribute('aria-busy', 'true');
+    }
+    if (refreshMessage) refreshMessage.textContent = manual ? 'Checking for new articles...' : '';
+
+    try {
+      const feedUrl = getFeedUrl(documentRef.baseURI, Date.now());
+      const feed = await safeFetchJSON(feedUrl, { method: 'GET' });
+
+      // If the feed is returned as a string (not JSON), try to parse it
+      let feedObj = feed;
+      if (typeof feed === 'string') {
+        try { feedObj = JSON.parse(feed); } catch (e) { /* keep as string */ }
+      }
+
+      // If feedObj isn't an object, throw
+      if (!feedObj || typeof feedObj !== 'object') {
+        throw new Error('Unexpected feed format');
+      }
+
+      const cutoff = Date.now() - Number(feedObj.windowHours || 20) * 60 * 60 * 1000;
+      const posts = [...(Array.isArray(feedObj.posts) ? feedObj.posts : [])]
+        .filter(post => new Date(post.createdAt).getTime() >= cutoff)
+        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+        .slice(-20);
+
+      visiblePosts = filterUnreadPosts(posts, loadReadIds());
+      if (list) list.replaceChildren(...visiblePosts.map(post => renderPost(documentRef, post)));
+      if (count) count.textContent = String(visiblePosts.length).padStart(2, "0");
+      if (updated) updated.textContent = formatter.format(new Date(feedObj.generatedAt));
+
+      const stale = getFeedStatus(feedObj) === 'Snapshot stale';
+      if (status) {
+        status.textContent = getFeedStatus(feedObj);
+        status.classList.toggle('is-stale', stale);
+      }
+
+      if (markRead) markRead.disabled = visiblePosts.length === 0;
+      if (empty) {
+        empty.textContent = posts.length > 0
+          ? 'You are all caught up. New articles will appear after the next refresh.'
+          : 'No qualifying posts were captured in this 20-hour window.';
+        empty.hidden = visiblePosts.length > 0;
+      }
+
+      if (refreshMessage) refreshMessage.textContent = manual
+        ? `${visiblePosts.length} unread article${visiblePosts.length === 1 ? '' : 's'} loaded.`
+        : '';
+
+      // Clear stale indicator if we successfully refreshed from remote source
+      if (!stale && status) status.classList.remove('is-stale');
+
+    } catch (error) {
+      console.error('loadFeed failed', error);
+      if (refreshMessage) refreshMessage.textContent = `Refresh failed. Showing the last available snapshot (${error.message}).`;
+      showAlert(`Refresh failed: ${error.message}`);
+    } finally {
+      isRefreshing = false;
+      if (refresh) {
+        refresh.disabled = false;
+        refresh.removeAttribute('aria-busy');
+      }
+    }
+  }
+
+  // Mark all as read
+  function markAllAsReadAction() {
+    try {
+      if (visiblePosts.length === 0) return;
+      const markedCount = visiblePosts.length;
+      saveReadIds(mergeReadIds(loadReadIds(), visiblePosts));
+      visiblePosts = [];
+      if (list) list.replaceChildren();
+      if (count) count.textContent = '00';
+      if (markRead) markRead.disabled = true;
+      if (empty) {
+        empty.textContent = 'You are all caught up. New articles will appear after the next refresh.';
+        empty.hidden = false;
+      }
+      if (refreshMessage) refreshMessage.textContent = `${markedCount} article${markedCount === 1 ? '' : 's'} marked as read. Refresh to clear them.`;
+    } catch (err) {
+      console.error('markAllAsReadAction failed', err);
+      showAlert('Could not mark as read: ' + err.message);
+    }
+  }
+
+  // Wire up controls using delegation so handlers persist if DOM nodes are replaced
+  documentRef.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target && (target.matches && target.matches('#mark-read') || target.closest && target.closest('#mark-read'))) {
+      e.preventDefault();
+      markAllAsReadAction();
+    } else if (target && (target.matches && target.matches('#refresh-feed') || target.closest && target.closest('#refresh-feed'))) {
+      e.preventDefault();
+      loadFeed({ manual: true });
+    }
   });
 
-  refresh.addEventListener("click", () => loadFeed({ manual: true }));
+  // Backwards-compatible listeners (in case other code expects them)
+  if (markRead) markRead.addEventListener('click', () => markAllAsReadAction());
+  if (refresh) refresh.addEventListener('click', () => loadFeed({ manual: true }));
+
+  // Auto-refresh hourly
   setIntervalImpl(() => loadFeed(), 60 * 60 * 1000);
+  // Initial load
   loadFeed();
 
   return { loadFeed };
