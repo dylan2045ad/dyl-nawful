@@ -1,8 +1,7 @@
 name: Collect snapshots
 
 on:
-  schedule:
-    - cron: '0 * * * *'
+  # Authenticated collection runs through the local Windows scheduled task.
   workflow_dispatch:
 
 jobs:
