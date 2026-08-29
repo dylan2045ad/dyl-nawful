@@ -161,8 +161,8 @@ export function initializeApp({
       const cutoff = Date.now() - Number(feedObj.windowHours || 20) * 60 * 60 * 1000;
       const posts = [...(Array.isArray(feedObj.posts) ? feedObj.posts : [])]
         .filter(post => new Date(post.createdAt).getTime() >= cutoff)
-        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-        .slice(-20);
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 20);
 
       visiblePosts = filterUnreadPosts(posts, loadReadIds());
       if (list) list.replaceChildren(...visiblePosts.map(post => renderPost(documentRef, post)));

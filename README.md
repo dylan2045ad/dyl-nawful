@@ -5,7 +5,7 @@ A chronological, cyberpunk-styled viewer for up to 20 posts authored by [@MarioN
 ## Data contract
 
 - `data/posts.json` is the public, deployable snapshot.
-- Posts are limited to the newest 20 qualifying items and stored oldest to newest.
+- Posts are limited to the newest 20 qualifying items, stored oldest to newest, and displayed newest to oldest.
 - Pinned posts, repost-only entries, malformed rows, duplicates, future timestamps, and rows outside 20 hours are rejected.
 - The browser collector uses Dylan's existing authenticated Chrome session. No credentials are stored in this repository.
 - A failed refresh preserves the last successful snapshot; the page marks data older than two hours as stale.
