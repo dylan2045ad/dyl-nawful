@@ -7,6 +7,7 @@ import { normalizeCollectedRow } from "./lib/collector.mjs";
 const output = resolve(process.argv[2] ?? "data/browser-export.json");
 const endpoint = process.env.DYL_NAWFUL_CDP_ENDPOINT ?? "http://127.0.0.1:9222";
 const maxScrolls = Number(process.env.DYL_NAWFUL_MAX_SCROLLS ?? 14);
+const targetPosts = Number(process.env.DYL_NAWFUL_TARGET_POSTS ?? 30);
 const cutoff = Date.now() - 20 * 60 * 60 * 1000;
 
 export async function assertCdpReady(endpoint, fetchImpl = fetch) {
@@ -55,7 +56,7 @@ async function collectTimelineRows(page) {
     const qualifying = [...collected.values()].filter(row => (
       !row.isPinned && !row.hasRetweet && Date.parse(row.time) >= cutoff
     ));
-    if (qualifying.length >= 24) break;
+    if (qualifying.length >= targetPosts + 4) break;
     if (attempt === maxScrolls) break;
     await page.evaluate(() => window.scrollBy(0, Math.max(window.innerHeight * 1.6, 1200)));
     await page.waitForTimeout(900);

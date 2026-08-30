@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
-    [string]$CdpEndpoint = "http://127.0.0.1:9222"
+    [string]$CdpEndpoint = "http://127.0.0.1:9222",
+    [string]$CdpRecoveryScript = "C:\Users\Dylan\.hermes\scripts\Start-HermesChromeCdp.ps1"
 )
 
 $ErrorActionPreference = "Stop"
@@ -30,6 +31,15 @@ function Invoke-Checked {
     }
 }
 
+function Test-CdpReady {
+    try {
+        $response = Invoke-WebRequest -Uri "$CdpEndpoint/json/version" -TimeoutSec 5 -UseBasicParsing
+        return $response.StatusCode -eq 200
+    } catch {
+        return $false
+    }
+}
+
 try {
     try {
         $lockStream = [System.IO.File]::Open($lockPath, "OpenOrCreate", "ReadWrite", "None")
@@ -49,10 +59,24 @@ try {
     Invoke-Checked git merge --ff-only origin/main
 
     $env:DYL_NAWFUL_CDP_ENDPOINT = $CdpEndpoint
-    try {
-        Invoke-WebRequest -Uri "$CdpEndpoint/json/version" -TimeoutSec 5 -UseBasicParsing | Out-Null
-    } catch {
-        throw "Chrome CDP preflight failed at $CdpEndpoint. Keep the signed-in Chrome session running with remote debugging enabled. $($_.Exception.Message)"
+    if (-not (Test-CdpReady)) {
+        if (-not (Test-Path -LiteralPath $CdpRecoveryScript)) {
+            throw "Chrome CDP is unavailable and the recovery script was not found at $CdpRecoveryScript."
+        }
+        $cdpUri = [uri]$CdpEndpoint
+        Write-RefreshLog "Chrome CDP unavailable; starting the authenticated Hermes Chrome profile."
+        $recoveryArguments = @(
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy", "Bypass",
+            "-File", $CdpRecoveryScript,
+            "-Port", [string]$cdpUri.Port,
+            "-Url", "https://x.com/MarioNawfal"
+        )
+        Invoke-Checked -FilePath "powershell.exe" -Arguments $recoveryArguments
+    }
+    if (-not (Test-CdpReady)) {
+        throw "Chrome CDP recovery did not make $CdpEndpoint ready."
     }
     $collected = $false
     for ($attempt = 1; $attempt -le 2 -and -not $collected; $attempt += 1) {

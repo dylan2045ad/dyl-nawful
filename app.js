@@ -1,4 +1,5 @@
 export const READ_STORAGE_KEY = "dyl-nawful-read-posts-v1";
+export const MAX_VISIBLE_POSTS = 30;
 const MAX_STORED_READ_IDS = 1000;
 
 const formatter = new Intl.DateTimeFormat(undefined, {
@@ -162,7 +163,7 @@ export function initializeApp({
       const posts = [...(Array.isArray(feedObj.posts) ? feedObj.posts : [])]
         .filter(post => new Date(post.createdAt).getTime() >= cutoff)
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        .slice(0, 20);
+        .slice(0, MAX_VISIBLE_POSTS);
 
       visiblePosts = filterUnreadPosts(posts, loadReadIds());
       if (list) list.replaceChildren(...visiblePosts.map(post => renderPost(documentRef, post)));
@@ -235,10 +236,6 @@ export function initializeApp({
       loadFeed({ manual: true });
     }
   });
-
-  // Backwards-compatible listeners (in case other code expects them)
-  if (markRead) markRead.addEventListener('click', () => markAllAsReadAction());
-  if (refresh) refresh.addEventListener('click', () => loadFeed({ manual: true }));
 
   // Auto-refresh hourly
   setIntervalImpl(() => loadFeed(), 60 * 60 * 1000);

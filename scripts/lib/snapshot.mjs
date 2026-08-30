@@ -3,7 +3,7 @@ const STATUS_PATTERN = /^\/MarioNawfal\/status\/(\d+)$/i;
 export function normalizePosts(rows, options = {}) {
   const now = new Date(options.now ?? Date.now());
   const windowHours = options.windowHours ?? 20;
-  const limit = options.limit ?? 20;
+  const limit = options.limit ?? 30;
   const cutoff = now.getTime() - windowHours * 60 * 60 * 1000;
   const unique = new Map();
 

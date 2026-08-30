@@ -20,14 +20,14 @@ test("keeps only posts in the 20-hour window", () => {
   assert.deepEqual(posts.map(post => post.id), ["1"]);
 });
 
-test("sorts chronologically and caps the newest 20", () => {
-  const rows = Array.from({ length: 24 }, (_, index) => row(
+test("sorts chronologically and caps the newest 30", () => {
+  const rows = Array.from({ length: 34 }, (_, index) => row(
     String(index + 1),
     new Date(Date.parse(now) - index * 60_000).toISOString()
   ));
   const posts = normalizePosts(rows, { now });
-  assert.equal(posts.length, 20);
-  assert.equal(posts[0].id, "20");
+  assert.equal(posts.length, 30);
+  assert.equal(posts[0].id, "30");
   assert.equal(posts.at(-1).id, "1");
 });
 

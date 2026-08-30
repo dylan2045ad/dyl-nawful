@@ -1,11 +1,11 @@
 # Dyl Nawful
 
-A chronological, cyberpunk-styled viewer for up to 20 posts authored by [@MarioNawfal](https://x.com/MarioNawfal) during the latest 20-hour window.
+A chronological, cyberpunk-styled viewer for up to 30 posts authored by [@MarioNawfal](https://x.com/MarioNawfal) during the latest 20-hour window.
 
 ## Data contract
 
 - `data/posts.json` is the public, deployable snapshot.
-- Posts are limited to the newest 20 qualifying items, stored oldest to newest, and displayed newest to oldest.
+- Posts are limited to the newest 30 qualifying items, stored oldest to newest, and displayed newest to oldest.
 - Pinned posts, repost-only entries, malformed rows, duplicates, future timestamps, and rows outside 20 hours are rejected.
 - The browser collector uses Dylan's existing authenticated Chrome session. No credentials are stored in this repository.
 - A failed refresh preserves the last successful snapshot; the page marks data older than two hours as stale.
@@ -45,7 +45,7 @@ GitHub Pages deploys automatically after each verified snapshot commit reaches `
 
 The Windows task `Dyl Nawful Hourly Refresh` runs `scripts/refresh-and-publish.ps1` once per hour while Dylan is signed in. The runner:
 
-1. Connects to the authenticated Chrome CDP session at `http://127.0.0.1:9222`.
+1. Connects to the authenticated Chrome CDP session at `http://127.0.0.1:9222`, starting the existing Hermes Chrome profile when needed.
 2. Collects and validates current `@MarioNawfal` timeline rows.
 3. Preserves the last successful snapshot if collection or validation fails.
 4. Runs all tests, commits only `data/posts.json`, and pushes `main`.

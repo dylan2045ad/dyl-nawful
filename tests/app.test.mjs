@@ -1,6 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { filterUnreadPosts, getFeedStatus, getFeedUrl, mergeReadIds, parseReadIds } from "../app.js";
+import { MAX_VISIBLE_POSTS, filterUnreadPosts, getFeedStatus, getFeedUrl, mergeReadIds, parseReadIds } from "../app.js";
+
+test("shows up to the newest 30 posts", () => {
+  assert.equal(MAX_VISIBLE_POSTS, 30);
+});
 
 test("parses stored read IDs and tolerates malformed state", () => {
   assert.deepEqual([...parseReadIds('["1",2]')], ["1", "2"]);
