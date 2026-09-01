@@ -7,7 +7,7 @@
     "test": "node --test",
     "validate": "node --check app.js && node --check scripts/build-snapshot.mjs && node --check scripts/collect-x-posts.mjs",
     "collect": "node scripts/collect-x-posts.mjs",
-    "refresh": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/refresh-and-publish.ps1"
+    "refresh": "bash scripts/refresh-and-publish.sh"
   },
   "dependencies": {
     "playwright-core": "1.62.1"
