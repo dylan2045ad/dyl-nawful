@@ -1,0 +1,138 @@
+[
+  {
+    "status": "/status/2095184248995016833",
+    "href": "https://x.com/kimmonismus/status/2095184248995016833",
+    "time": "2026-09-02T16:17:06.000Z",
+    "text": "Gemini 3.8 Flash: 73% on DeepSWE at very good pricing! Google was cooking! Exciting for Gemini 4 Pro",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094988941715702115",
+    "href": "https://x.com/EMostaque/status/2094988941715702115",
+    "time": "2026-09-02T03:21:01.000Z",
+    "text": "I see a lot of my TL freaking out about this\n\nHere is the reality:\n\nFrontier models will one shot just about anything at 10,000 tokens per second in a few years\n\nDo you really think we can monitor that?\n\nWould need speed limits on the model that it would code around anyway",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2095013103633313851",
+    "href": "https://x.com/jukan05/status/2095013103633313851",
+    "time": "2026-09-02T04:57:02.000Z",
+    "text": "TSMC to Stick With Microbumps Over Hybrid Bonding for HBM Packaging for Now, Tasks Suppliers With 5μm Development\n\nTaiwan's TSMC is expected to continue using conventional microbump technology, rather than hybrid bonding, for advanced packaging that connects high-bandwidth memory",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094918489488404857",
+    "href": "https://x.com/theaaron/status/2094918489488404857",
+    "time": "2026-09-01T22:41:04.000Z",
+    "text": "successfully ported all \n@grok\n \n@bot\n s and channels to \n@NousResearch\n Hermes, will report back on results",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2095055227787292789",
+    "href": "https://x.com/kimmonismus/status/2095055227787292789",
+    "time": "2026-09-02T07:44:25.000Z",
+    "text": "wtf Qwen 3.8 has been updated to version 0902 and is now almost at the same level as Fable 5 in benchmarks.\n\nThe interesting two aspects:\n\n1) For such significant jumps, it seems that you don't even change the version number anymore (no Qwen 3.9), rather the development happens",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2095096900781507016",
+    "href": "https://x.com/WesRoth/status/2095096900781507016",
+    "time": "2026-09-02T10:30:00.000Z",
+    "text": "Google is rolling out Google Pics, a new AI image creation and editing tool for Google Workspace customers and Google AI Pro & Ultra subscribers.\n\nPics is designed for precise AI image creation and gives users more control over individual elements of an image.\n\nThe tool can:\n\n•",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2095184148981842161",
+    "href": "https://x.com/synthwavedd/status/2095184148981842161",
+    "time": "2026-09-02T16:16:42.000Z",
+    "text": "BREAKING: \"gpt-6-astra\" has been staged on the OpenAI API\n\nThe OpenAI Responses API now returns a 404 Not Found for \"gpt-6-astra\", where garbage/actually non-existent slugs return 400s - a 404 is also returned for 5.6 Cyber, which we know exists.\n\nA similar quirk exists in the",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2095166019010494891",
+    "href": "https://x.com/synthwavedd/status/2095166019010494891",
+    "time": "2026-09-02T15:04:39.000Z",
+    "text": "Google have, dare I say... RELEASED A GOOD MODEL \n\nGemini 3.8 Flash provides ~Opus 5 performance at much lower cost, while being super fast",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094952163785183531",
+    "href": "https://x.com/kloss_xyz/status/2094952163785183531",
+    "time": "2026-09-02T00:54:52.000Z",
+    "text": "A SpaceXAI and Grok Bot team member just dropped 8 \n@bot\n templates.\n\nFor phone calls, posting on X, writing and editing, generating images, coding, networking, tool testing, and parking tickets.\n\nSteal and remix them.",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094974637704913198",
+    "href": "https://x.com/arena/status/2094974637704913198",
+    "time": "2026-09-02T02:24:11.000Z",
+    "text": "Big news: Qwen3.8-Max-0902 by \n@Alibaba_Qwen\n just debuted at #1 overall in the Code Arena: WebDev with 1691 pts!\n\nIt scores 3 pts above Claude Opus 5 (Max), 17 pts above Kimi K3 (Max), and 22 pts above the previous Qwen3.8-Max.\n\nPriced at a blended $5/MToken, Qwen3.8-Max-0902 also",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094903230455238922",
+    "href": "https://x.com/PolymarketMoney/status/2094903230455238922",
+    "time": "2026-09-01T21:40:26.000Z",
+    "text": "BREAKING: Palantir won a new U.S. Army TITAN production contract to deliver 8 AI-powered ground stations as the prime contractor.",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094841307935957304",
+    "href": "https://x.com/GoogleAIStudio/status/2094841307935957304",
+    "time": "2026-09-01T17:34:22.000Z",
+    "text": "introducing agentic video understanding with Gemini\n\ninstead of using static processing (ingesting media at a fixed frame rate), the model can now take an active, goal-directed role in determining what to watch, at what speed, and through which modality (frames, audio, or",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094915043783746027",
+    "href": "https://x.com/XFreeze/status/2094915043783746027",
+    "time": "2026-09-01T22:27:22.000Z",
+    "text": "Grok Bot is getting a Marketplace\n\nSpaceXAI is preparing to launch marketplace where you can browse hand-picked Grok Bots by category, review exactly how they work, and add them directly to your team\n\nNow Bots become the other:\n• Browse specialized Grok Bots\n• See what each Bot",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094843143623680264",
+    "href": "https://x.com/OfficialLoganK/status/2094843143623680264",
+    "time": "2026-09-01T17:41:40.000Z",
+    "text": "Introducing Agentic Video in the Gemini API, a new way to process long videos which reduces token consumption by up to 88% while also increasing quality. \n\nThis can be controlled easily in the API on a per video basis, available with our newest models like 3.7 Flash!",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094862535422030328",
+    "href": "https://x.com/haider1/status/2094862535422030328",
+    "time": "2026-09-01T18:58:43.000Z",
+    "text": "goddamn, CursorBench 3.2:\n\nfable 5.1 medium: 68.0% - $3.53/task\ngpt-5.6 sol max: 67.2% - $5.69/task\n\nfable is now beating sol while costing way less per task\n\ni said this efficiency jump was coming, just didn't expect it to get this cheap this fast",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094879623326703925",
+    "href": "https://x.com/synthwavedd/status/2094879623326703925",
+    "time": "2026-09-01T20:06:37.000Z",
+    "text": "OpenAI have today published a blog post detailing the precautions they're taking with regard to Astra's capabilities and the necessary safeguards\n\nYet another good sign it's imminent! You can give it a read here - \nhttps://\nopenai.com/index/path-to-\nastra/\n...",
+    "isPinned": false,
+    "hasRetweet": false
+  },
+  {
+    "status": "/status/2094914667487608858",
+    "href": "https://x.com/WesRoth/status/2094914667487608858",
+    "time": "2026-09-01T22:25:53.000Z",
+    "text": "Google is introducing agentic video understanding to its latest Gemini models, allowing developers to process long-form video dynamically instead of analyzing it at a fixed rate.\n\nWith agentic video understanding, Gemini can instead search, scan, and inspect a video dynamically,",
+    "isPinned": false,
+    "hasRetweet": false
+  }
+]
