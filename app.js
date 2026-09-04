@@ -1,4 +1,5 @@
 export const READ_STORAGE_KEY = "dyl-nawful-read-posts-v1";
+export const AUTO_REFRESH_MS = 5 * 60 * 1000;60 * 60 * 1000
 export const MAX_VISIBLE_POSTS = 30;
 const MAX_STORED_READ_IDS = 1000;
 
@@ -246,3 +247,5 @@ export function initializeApp({
 }
 
 if (typeof document !== "undefined") initializeApp();
+
+setInterval(() => location.reload(), 5 * 60 * 1000);
