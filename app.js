@@ -1,6 +1,6 @@
 export const READ_STORAGE_KEY = "dyl-nawful-read-posts-v1";
-export const AUTO_REFRESH_MS = 5 * 60 * 1000;60 * 60 * 1000
 export const MAX_VISIBLE_POSTS = 30;
+export const AUTO_REFRESH_MS = 5 * 60 * 1000;
 const MAX_STORED_READ_IDS = 1000;
 
 const formatter = new Intl.DateTimeFormat(undefined, {
@@ -35,7 +35,9 @@ export function getFeedStatus(feed, now = Date.now()) {
 
 export function getFeedUrl(baseUri = "http://localhost/", now = Date.now()) {
   const url = new URL("data/posts.json", baseUri);
-  url.searchParams.set("refresh", String(now));
+  // GitHub Pages may cache JSON for several minutes. A unique query key makes
+  // every manual reload request a new CDN object while remaining same-origin.
+  url.searchParams.set("v", String(now));
   return url.href;
 }
 
@@ -119,7 +121,12 @@ export function initializeApp({
       }
       const controller = new AbortController();
       const id = setTimeout(() => controller.abort(), timeoutMs);
-      const res = await fetchImpl(url, {...options, signal: controller.signal, credentials: 'same-origin'});
+      const res = await fetchImpl(url, {
+        ...options,
+        cache: 'no-store',
+        signal: controller.signal,
+        credentials: 'same-origin'
+      });
       clearTimeout(id);
       if (!res.ok) {
         const text = await res.text().catch(()=>'<no body>');
@@ -186,7 +193,7 @@ export function initializeApp({
       }
 
       if (refreshMessage) refreshMessage.textContent = manual
-        ? `${visiblePosts.length} unread article${visiblePosts.length === 1 ? '' : 's'} loaded.`
+        ? `${visiblePosts.length} unread article${visiblePosts.length === 1 ? '' : 's'} loaded from the latest published snapshot.`
         : '';
 
       // Clear stale indicator if we successfully refreshed from remote source
@@ -219,7 +226,7 @@ export function initializeApp({
         empty.textContent = 'You are all caught up. New articles will appear after the next refresh.';
         empty.hidden = false;
       }
-      if (refreshMessage) refreshMessage.textContent = `${markedCount} article${markedCount === 1 ? '' : 's'} marked as read. Refresh to clear them.`;
+      if (refreshMessage) refreshMessage.textContent = `${markedCount} article${markedCount === 1 ? '' : 's'} marked as read.`;
     } catch (err) {
       console.error('markAllAsReadAction failed', err);
       showAlert('Could not mark as read: ' + err.message);
@@ -238,8 +245,12 @@ export function initializeApp({
     }
   });
 
-  // Auto-refresh hourly
-  setIntervalImpl(() => loadFeed(), 60 * 60 * 1000);
+  // Keep an open page close to the latest published snapshot. The query-string
+  // and no-store request also avoid GitHub Pages/CDN returning an old snapshot.
+  setIntervalImpl(() => loadFeed(), AUTO_REFRESH_MS);
+  documentRef.addEventListener('visibilitychange', () => {
+    if (documentRef.visibilityState === 'visible') loadFeed();
+  });
   // Initial load
   loadFeed();
 
@@ -247,5 +258,3 @@ export function initializeApp({
 }
 
 if (typeof document !== "undefined") initializeApp();
-
-setInterval(() => location.reload(), 5 * 60 * 1000);
