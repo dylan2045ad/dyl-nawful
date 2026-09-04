@@ -35,9 +35,7 @@ export function getFeedStatus(feed, now = Date.now()) {
 
 export function getFeedUrl(baseUri = "http://localhost/", now = Date.now()) {
   const url = new URL("data/posts.json", baseUri);
-  // GitHub Pages may cache JSON for several minutes. A unique query key makes
-  // every manual reload request a new CDN object while remaining same-origin.
-  url.searchParams.set("v", String(now));
+  url.searchParams.set("refresh", String(now));
   return url.href;
 }
 
