@@ -23,7 +23,9 @@ start_cdp_browser() {
     return 127
   fi
 
-  profile_dir="${DYL_NAWFUL_CHROME_PROFILE:-$HOME/.config/chromium-dyl-nawful}"
+  # Reuse Dylan's existing Chromium profile so the hourly collector has the
+  # same authenticated X session that was verified interactively.
+  profile_dir="${DYL_NAWFUL_CHROME_PROFILE:-$HOME/.config/chromium}"
   mkdir -p "$profile_dir"
 
   echo "Starting the dedicated Dyl Nawful browser profile..."
