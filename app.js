@@ -1,5 +1,6 @@
 export const READ_STORAGE_KEY = "dyl-nawful-read-posts-v1";
 export const MAX_VISIBLE_POSTS = 30;
+export const AUTO_REFRESH_MS = 5 * 60 * 1000;
 const MAX_STORED_READ_IDS = 1000;
 
 const formatter = new Intl.DateTimeFormat(undefined, {
@@ -118,7 +119,12 @@ export function initializeApp({
       }
       const controller = new AbortController();
       const id = setTimeout(() => controller.abort(), timeoutMs);
-      const res = await fetchImpl(url, {...options, signal: controller.signal, credentials: 'same-origin'});
+      const res = await fetchImpl(url, {
+        ...options,
+        cache: 'no-store',
+        signal: controller.signal,
+        credentials: 'same-origin'
+      });
       clearTimeout(id);
       if (!res.ok) {
         const text = await res.text().catch(()=>'<no body>');
@@ -237,8 +243,12 @@ export function initializeApp({
     }
   });
 
-  // Auto-refresh hourly
-  setIntervalImpl(() => loadFeed(), 60 * 60 * 1000);
+  // Keep an open page close to the latest published snapshot. The query-string
+  // and no-store request also avoid GitHub Pages/CDN returning an old snapshot.
+  setIntervalImpl(() => loadFeed(), AUTO_REFRESH_MS);
+  documentRef.addEventListener('visibilitychange', () => {
+    if (documentRef.visibilityState === 'visible') loadFeed();
+  });
   // Initial load
   loadFeed();
 
