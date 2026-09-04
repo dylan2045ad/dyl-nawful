@@ -35,7 +35,9 @@ export function getFeedStatus(feed, now = Date.now()) {
 
 export function getFeedUrl(baseUri = "http://localhost/", now = Date.now()) {
   const url = new URL("data/posts.json", baseUri);
-  url.searchParams.set("refresh", String(now));
+  // GitHub Pages may cache JSON for several minutes. A unique query key makes
+  // every manual reload request a new CDN object while remaining same-origin.
+  url.searchParams.set("v", String(now));
   return url.href;
 }
 
@@ -191,7 +193,7 @@ export function initializeApp({
       }
 
       if (refreshMessage) refreshMessage.textContent = manual
-        ? `${visiblePosts.length} unread article${visiblePosts.length === 1 ? '' : 's'} loaded.`
+        ? `${visiblePosts.length} unread article${visiblePosts.length === 1 ? '' : 's'} loaded from the latest published snapshot.`
         : '';
 
       // Clear stale indicator if we successfully refreshed from remote source
@@ -224,7 +226,7 @@ export function initializeApp({
         empty.textContent = 'You are all caught up. New articles will appear after the next refresh.';
         empty.hidden = false;
       }
-      if (refreshMessage) refreshMessage.textContent = `${markedCount} article${markedCount === 1 ? '' : 's'} marked as read. Refresh to clear them.`;
+      if (refreshMessage) refreshMessage.textContent = `${markedCount} article${markedCount === 1 ? '' : 's'} marked as read.`;
     } catch (err) {
       console.error('markAllAsReadAction failed', err);
       showAlert('Could not mark as read: ' + err.message);

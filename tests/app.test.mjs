@@ -27,6 +27,6 @@ test("treats explicit and old snapshots as stale", () => {
 test("builds the feed URL relative to the deployed Pages path", () => {
   assert.equal(
     getFeedUrl("https://dylan2045ad.github.io/dyl-nawful/", 123),
-    "https://dylan2045ad.github.io/dyl-nawful/data/posts.json?refresh=123"
+    "https://dylan2045ad.github.io/dyl-nawful/data/posts.json?v=123"
   );
 });
