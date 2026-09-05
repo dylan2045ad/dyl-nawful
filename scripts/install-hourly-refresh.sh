@@ -20,8 +20,7 @@ cat > "$UNIT_DIR/dyl-nawful-refresh.timer" <<EOF
 Description=Refresh Dyl Nawful snapshot hourly
 
 [Timer]
-OnBootSec=5min
-OnUnitActiveSec=1h
+OnCalendar=hourly
 Persistent=true
 Unit=dyl-nawful-refresh.service
 
